@@ -15,7 +15,7 @@
   </div>
 
   <!-- POPUP 1 -->
-  <div class="popup hidden" id="popup1">
+  <div class="popup" id="popup1">
     <div class="popup-box">
       <p>Are you sure you want to view the files?</p>
       <button id="yesBtn">Yes</button>
@@ -24,37 +24,49 @@
   </div>
 
   <!-- POPUP 2 -->
-  <div class="popup hidden" id="popup2">
+  <div class="popup" id="popup2">
     <div class="popup-box">
+
+      <!-- CLOSE BUTTON (outside style handles positioning) -->
       <span class="close" id="closePopup2">×</span>
 
       <p>Do you take responsibility for the things you're about to see?</p>
-      <button id="respYes">Yes</button>
-      <button id="respNo">No</button>
+      <button>Yes</button>
+      <button>No</button>
 
       <p>Why do you wanna view these files?</p>
-      <select id="reason">
+      <select>
         <option>Curiosity</option>
         <option>I hate Aitzaz</option>
         <option>Idk, for fun</option>
       </select>
 
+      <br><br>
       <button id="confirmBtn">Confirm</button>
     </div>
   </div>
 
   <!-- GALLERY -->
-  <div id="gallery" class="hidden"></div>
-  <p id="bottomText" class="hidden">more files may/may not be revealed</p>
+  <div id="gallery"></div>
+  <p id="bottomText">more files may/may not be revealed</p>
 
-  <!-- VIEWER -->
-  <div id="viewer" class="hidden">
+  <!-- IMAGE VIEWER -->
+  <div id="viewer">
+    
+    <!-- CLOSE BUTTON -->
     <span class="close" id="closeViewer">×</span>
-    <button class="nav left" id="prevBtn">←</button>
-    <img id="viewerImg">
-    <button class="nav right" id="nextBtn">→</button>
+
+    <!-- NAV -->
+    <div class="nav left" id="prevBtn">←</div>
+
+    <!-- IMAGE -->
+    <img id="viewerImg" src="">
+
+    <div class="nav right" id="nextBtn">→</div>
   </div>
 
- <script src="script.js?v=3"></script>
+  <!-- SCRIPT (CACHE FIX INCLUDED) -->
+  <script src="script.js?v=3"></script>
+
 </body>
 </html>
