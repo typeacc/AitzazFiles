@@ -1,39 +1,16 @@
 // ===== CONFIG =====
-const TOTAL_IMAGES = 59; // <<< CHANGE THIS WHEN YOU ADD MORE
+const TOTAL = 59; // <<< change this if you add more images
 
 // ===== STATE =====
-let currentIndex = 0;
+let current = 1;
 
 // ===== ELEMENTS =====
-const mainMenu = document.getElementById("mainMenu");
 const viewBtn = document.getElementById("viewBtn");
-
 const popup1 = document.getElementById("popup1");
 const popup2 = document.getElementById("popup2");
-
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const closePopup2 = document.getElementById("closePopup2");
-const confirmBtn = document.getElementById("confirmBtn");
-
 const gallery = document.getElementById("gallery");
-const bottomText = document.getElementById("bottomText");
-
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
-const closeViewerBtn = document.getElementById("closeViewer");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-
-// ===== START CLEAN =====
-window.onload = () => {
-  popup1.classList.remove("active");
-  popup2.classList.remove("active");
-  gallery.classList.remove("active");
-  viewer.classList.remove("active");
-
-  bottomText.style.display = "none";
-};
 
 // ===== FLOW =====
 viewBtn.onclick = () => popup1.classList.add("active");
@@ -49,18 +26,16 @@ closePopup2.onclick = () => popup2.classList.remove("active");
 
 confirmBtn.onclick = () => {
   popup2.classList.remove("active");
-  openGallery();
+  startGallery();
 };
 
 // ===== GALLERY =====
-function openGallery() {
-  mainMenu.style.display = "none";
+function startGallery() {
+  document.getElementById("mainMenu").style.display = "none";
   gallery.classList.add("active");
   bottomText.style.display = "block";
 
-  gallery.innerHTML = "";
-
-  for (let i = 1; i <= TOTAL_IMAGES; i++) {
+  for (let i = 1; i <= TOTAL; i++) {
     const box = document.createElement("div");
     box.className = "image-box";
 
@@ -79,39 +54,28 @@ function openGallery() {
 }
 
 // ===== VIEWER =====
-function openViewer(index) {
-  currentIndex = index;
+function openViewer(i) {
+  current = i;
   viewer.classList.add("active");
-  updateViewer();
+  update();
 }
 
-function updateViewer() {
-  viewerImg.src = currentIndex + ".jpg";
+function update() {
+  viewerImg.src = current + ".jpg";
 }
 
-closeViewerBtn.onclick = () => {
-  viewer.classList.remove("active");
-};
+closeViewer.onclick = () => viewer.classList.remove("active");
 
 nextBtn.onclick = () => {
-  if (currentIndex < TOTAL_IMAGES) {
-    currentIndex++;
-    updateViewer();
+  if (current < TOTAL) {
+    current++;
+    update();
   }
 };
 
 prevBtn.onclick = () => {
-  if (currentIndex > 1) {
-    currentIndex--;
-    updateViewer();
+  if (current > 1) {
+    current--;
+    update();
   }
 };
-
-// ===== EXTRA =====
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") viewer.classList.remove("active");
-});
-
-viewer.addEventListener("click", (e) => {
-  if (e.target === viewer) viewer.classList.remove("active");
-});
