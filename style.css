@@ -87,17 +87,29 @@ button:active {
 /* CLOSE BUTTON */
 .close {
   position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 22px;
+  top: 20px;
+  right: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff4d4d;
   cursor: pointer;
-  transition: 0.2s;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 14px;
+  border-radius: 10px;
+
+  transition: 0.2s ease;
 }
 
+/* Hover */
 .close:hover {
-  color: #4cafef;
+  background: #ff4d4d;
+  color: white;
 }
 
+/* Click */
+.close:active {
+  transform: scale(0.9);
+}
 /* GALLERY */
 #gallery {
   display: none;
