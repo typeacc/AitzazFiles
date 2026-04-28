@@ -1,6 +1,6 @@
 // ===== STATE =====
-let currentIndex = 1;
-let images = []; // stores all valid images
+let currentIndex = 0;
+let images = [];
 
 // ===== ELEMENTS =====
 const mainMenu = document.getElementById("mainMenu");
@@ -50,61 +50,40 @@ confirmBtn.onclick = () => {
   openGallery();
 };
 
-// ===== AUTO LOAD IMAGES =====
-function loadImages() {
-  return new Promise((resolve) => {
-    let maxCheck = 500; // will check up to 500.jpg (more than enough)
-
-    let loaded = 0;
-
-    for (let i = 1; i <= maxCheck; i++) {
-      const img = new Image();
-      img.src = i + ".jpg";
-
-      img.onload = () => {
-        images.push(i);
-        loaded++;
-      };
-
-      img.onerror = () => {
-        loaded++;
-      };
-
-      if (i === maxCheck) {
-        // small delay to ensure all async loads finish
-        setTimeout(() => resolve(), 300);
-      }
-    }
-  });
-}
-
-// ===== GALLERY =====
-async function openGallery() {
+// ===== GALLERY (SIMPLE + RELIABLE) =====
+function openGallery() {
   mainMenu.style.display = "none";
   gallery.classList.add("active");
   bottomText.style.display = "block";
 
-  gallery.innerHTML = [];
-
+  gallery.innerHTML = "";
   images = [];
-  await loadImages();
 
-  images.forEach((num) => {
-    const box = document.createElement("div");
-    box.className = "image-box";
+  const maxImages = 200; // just a safe limit
 
-    const img = document.createElement("img");
-    img.src = num + ".jpg";
+  for (let i = 1; i <= maxImages; i++) {
+    const img = new Image();
+    img.src = i + ".jpg";
 
-    img.onclick = () => openViewer(num);
+    img.onload = () => {
+      images.push(i);
 
-    const label = document.createElement("p");
-    label.textContent = num + ".jpg";
+      const box = document.createElement("div");
+      box.className = "image-box";
 
-    box.appendChild(img);
-    box.appendChild(label);
-    gallery.appendChild(box);
-  });
+      const imageEl = document.createElement("img");
+      imageEl.src = i + ".jpg";
+
+      imageEl.onclick = () => openViewer(i);
+
+      const label = document.createElement("p");
+      label.textContent = i + ".jpg";
+
+      box.appendChild(imageEl);
+      box.appendChild(label);
+      gallery.appendChild(box);
+    };
+  }
 }
 
 // ===== VIEWER =====
