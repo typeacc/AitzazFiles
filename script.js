@@ -76,28 +76,6 @@ function showGallery() {
     gallery.appendChild(box);
   }
 }
-  gallery.classList.add("active");
-  document.getElementById("bottomText").style.display = "block";
-
-  gallery.innerHTML = ""; // prevent duplicates
-
-  for (let i = 1; i <= totalImages; i++) {
-    let box = document.createElement("div");
-    box.className = "image-box";
-
-    let img = document.createElement("img");
-    img.src = i + ".jpg";
-
-    img.onclick = () => openViewer(i);
-
-    let label = document.createElement("p");
-    label.innerText = i + ".jpg";
-
-    box.appendChild(img);
-    box.appendChild(label);
-    gallery.appendChild(box);
-  }
-}
 
 // ---- VIEWER ----
 function openViewer(index) {
