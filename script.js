@@ -1,48 +1,91 @@
 // ===== CONFIG =====
-const TOTAL = 59; // <<< change this if you add more images
+const totalImages = 20; // change this only
 
 // ===== STATE =====
-let current = 1;
+let currentIndex = 1;
 
 // ===== ELEMENTS =====
+const mainMenu = document.getElementById("mainMenu");
 const viewBtn = document.getElementById("viewBtn");
+
 const popup1 = document.getElementById("popup1");
 const popup2 = document.getElementById("popup2");
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const closePopup2 = document.getElementById("closePopup2");
+const confirmBtn = document.getElementById("confirmBtn");
+
 const gallery = document.getElementById("gallery");
+const bottomText = document.getElementById("bottomText");
+
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
+const closeViewerBtn = document.getElementById("closeViewer");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+// ===== FORCE CLEAN START =====
+window.addEventListener("load", () => {
+  popup1.classList.remove("active");
+  popup2.classList.remove("active");
+  gallery.classList.remove("active");
+  viewer.classList.remove("active");
+
+  bottomText.style.display = "none";
+});
 
 // ===== FLOW =====
-viewBtn.onclick = () => popup1.classList.add("active");
 
+// open first popup
+viewBtn.onclick = () => {
+  popup1.classList.add("active");
+};
+
+// popup1 -> popup2
 yesBtn.onclick = () => {
   popup1.classList.remove("active");
   popup2.classList.add("active");
 };
 
-noBtn.onclick = () => popup1.classList.remove("active");
+// close popup1
+noBtn.onclick = () => {
+  popup1.classList.remove("active");
+};
 
-closePopup2.onclick = () => popup2.classList.remove("active");
+// close popup2
+closePopup2.onclick = () => {
+  popup2.classList.remove("active");
+};
 
+// confirm -> show gallery
 confirmBtn.onclick = () => {
   popup2.classList.remove("active");
-  startGallery();
+  openGallery();
 };
 
 // ===== GALLERY =====
-function startGallery() {
-  document.getElementById("mainMenu").style.display = "none";
+function openGallery() {
+  // hide menu
+  mainMenu.style.display = "none";
+
+  // show gallery
   gallery.classList.add("active");
   bottomText.style.display = "block";
 
-  for (let i = 1; i <= TOTAL; i++) {
+  // clear old images (important)
+  gallery.innerHTML = "";
+
+  for (let i = 1; i <= totalImages; i++) {
     const box = document.createElement("div");
     box.className = "image-box";
 
     const img = document.createElement("img");
     img.src = i + ".jpg";
 
-    img.onclick = () => openViewer(i);
+    img.onclick = () => {
+      openViewer(i);
+    };
 
     const label = document.createElement("p");
     label.textContent = i + ".jpg";
@@ -54,28 +97,49 @@ function startGallery() {
 }
 
 // ===== VIEWER =====
-function openViewer(i) {
-  current = i;
+function openViewer(index) {
+  currentIndex = index;
   viewer.classList.add("active");
-  update();
+  updateViewer();
 }
 
-function update() {
-  viewerImg.src = current + ".jpg";
+function updateViewer() {
+  viewerImg.src = currentIndex + ".jpg";
 }
 
-closeViewer.onclick = () => viewer.classList.remove("active");
+// close viewer
+closeViewerBtn.onclick = () => {
+  viewer.classList.remove("active");
+};
 
+// next image
 nextBtn.onclick = () => {
-  if (current < TOTAL) {
-    current++;
-    update();
+  if (currentIndex < totalImages) {
+    currentIndex++;
+    updateViewer();
   }
 };
 
+// previous image
 prevBtn.onclick = () => {
-  if (current > 1) {
-    current--;
-    update();
+  if (currentIndex > 1) {
+    currentIndex--;
+    updateViewer();
   }
 };
+
+// ===== EXTRA (makes it feel better) =====
+
+// ESC key closes viewer
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    viewer.classList.remove("active");
+  }
+});
+
+// click outside image closes viewer
+viewer.addEventListener("click", (e) => {
+  if (e.target === viewer) {
+    viewer.classList.remove("active");
+  }
+});
