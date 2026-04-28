@@ -27,7 +27,7 @@
   <div class="popup" id="popup2">
     <div class="popup-box">
 
-      <!-- CLOSE BUTTON (outside style handles positioning) -->
+      <!-- CLOSE BUTTON -->
       <span class="close" id="closePopup2">×</span>
 
       <p>Do you take responsibility for the things you're about to see?</p>
@@ -52,24 +52,23 @@
 
   <!-- IMAGE VIEWER -->
   <div id="viewer">
-    
+
     <!-- CLOSE BUTTON -->
     <span class="close" id="closeViewer">×</span>
 
-    <!-- NAV -->
+    <!-- LEFT ARROW -->
     <div class="nav left" id="prevBtn">←</div>
 
     <!-- IMAGE -->
     <img id="viewerImg" src="">
 
+    <!-- RIGHT ARROW -->
     <div class="nav right" id="nextBtn">→</div>
+
   </div>
 
-  <!-- SCRIPT (CACHE FIX INCLUDED) -->
- <script>
-  const script = document.createElement("script");
-  script.src = "script.js?v=" + Date.now();
-  document.body.appendChild(script);
-</script>
+  <!-- NORMAL SCRIPT (NO WEIRD CACHE SYSTEM) -->
+  <script src="script.js?v=5"></script>
+
 </body>
 </html>
