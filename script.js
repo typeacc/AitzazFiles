@@ -51,6 +51,31 @@ confirmBtn.onclick = () => {
 
 // ---- GALLERY ----
 function showGallery() {
+  // HIDE MAIN MENU
+  document.getElementById("mainMenu").style.display = "none";
+
+  // SHOW GALLERY
+  gallery.classList.add("active");
+  document.getElementById("bottomText").style.display = "block";
+
+  gallery.innerHTML = "";
+
+  for (let i = 1; i <= totalImages; i++) {
+    let box = document.createElement("div");
+    box.className = "image-box";
+
+    let img = document.createElement("img");
+    img.src = i + ".jpg";
+    img.onclick = () => openViewer(i);
+
+    let label = document.createElement("p");
+    label.innerText = i + ".jpg";
+
+    box.appendChild(img);
+    box.appendChild(label);
+    gallery.appendChild(box);
+  }
+}
   gallery.classList.add("active");
   document.getElementById("bottomText").style.display = "block";
 
