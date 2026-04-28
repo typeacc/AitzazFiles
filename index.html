@@ -7,29 +7,30 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- MAIN MENU -->
+  <div class="container" id="mainMenu">
     <h1>Aitzaz Files</h1>
     <p>Aitzaz files are screenshots taken of very bad things he said in chat</p>
     <button id="viewBtn">View Files</button>
   </div>
 
-  <!-- Popup 1 -->
+  <!-- POPUP 1 -->
   <div class="popup hidden" id="popup1">
     <div class="popup-box">
       <p>Are you sure you want to view the files?</p>
       <button id="yesBtn">Yes</button>
-      <button onclick="closePopup('popup1')">No</button>
+      <button id="noBtn">No</button>
     </div>
   </div>
 
-  <!-- Popup 2 -->
+  <!-- POPUP 2 -->
   <div class="popup hidden" id="popup2">
     <div class="popup-box">
-      <span class="close" onclick="closePopup('popup2')">×</span>
+      <span class="close" id="closePopup2">×</span>
 
       <p>Do you take responsibility for the things you're about to see?</p>
-      <button onclick="setResponsibility(true)">Yes</button>
-      <button onclick="setResponsibility(false)">No</button>
+      <button id="respYes">Yes</button>
+      <button id="respNo">No</button>
 
       <p>Why do you wanna view these files?</p>
       <select id="reason">
@@ -42,16 +43,16 @@
     </div>
   </div>
 
-  <!-- Gallery -->
+  <!-- GALLERY -->
   <div id="gallery" class="hidden"></div>
   <p id="bottomText" class="hidden">more files may/may not be revealed</p>
 
-  <!-- Image Viewer -->
+  <!-- VIEWER -->
   <div id="viewer" class="hidden">
-    <span class="close" onclick="closeViewer()">×</span>
-    <button class="nav left" onclick="prevImage()">←</button>
+    <span class="close" id="closeViewer">×</span>
+    <button class="nav left" id="prevBtn">←</button>
     <img id="viewerImg">
-    <button class="nav right" onclick="nextImage()">→</button>
+    <button class="nav right" id="nextBtn">→</button>
   </div>
 
   <script src="script.js"></script>
