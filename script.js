@@ -1,6 +1,8 @@
+// ===== CONFIG =====
+const TOTAL_IMAGES = 59; // <<< CHANGE THIS WHEN YOU ADD MORE
+
 // ===== STATE =====
 let currentIndex = 0;
-let images = [];
 
 // ===== ELEMENTS =====
 const mainMenu = document.getElementById("mainMenu");
@@ -23,7 +25,7 @@ const closeViewerBtn = document.getElementById("closeViewer");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-// ===== CLEAN START =====
+// ===== START CLEAN =====
 window.onload = () => {
   popup1.classList.remove("active");
   popup2.classList.remove("active");
@@ -50,51 +52,41 @@ confirmBtn.onclick = () => {
   openGallery();
 };
 
-// ===== GALLERY (SIMPLE + RELIABLE) =====
+// ===== GALLERY =====
 function openGallery() {
   mainMenu.style.display = "none";
   gallery.classList.add("active");
   bottomText.style.display = "block";
 
   gallery.innerHTML = "";
-  images = [];
 
-  const maxImages = 200; // just a safe limit
+  for (let i = 1; i <= TOTAL_IMAGES; i++) {
+    const box = document.createElement("div");
+    box.className = "image-box";
 
-  for (let i = 1; i <= maxImages; i++) {
-    const img = new Image();
+    const img = document.createElement("img");
     img.src = i + ".jpg";
 
-    img.onload = () => {
-      images.push(i);
+    img.onclick = () => openViewer(i);
 
-      const box = document.createElement("div");
-      box.className = "image-box";
+    const label = document.createElement("p");
+    label.textContent = i + ".jpg";
 
-      const imageEl = document.createElement("img");
-      imageEl.src = i + ".jpg";
-
-      imageEl.onclick = () => openViewer(i);
-
-      const label = document.createElement("p");
-      label.textContent = i + ".jpg";
-
-      box.appendChild(imageEl);
-      box.appendChild(label);
-      gallery.appendChild(box);
-    };
+    box.appendChild(img);
+    box.appendChild(label);
+    gallery.appendChild(box);
   }
 }
 
 // ===== VIEWER =====
 function openViewer(index) {
-  currentIndex = images.indexOf(index);
+  currentIndex = index;
   viewer.classList.add("active");
   updateViewer();
 }
 
 function updateViewer() {
-  viewerImg.src = images[currentIndex] + ".jpg";
+  viewerImg.src = currentIndex + ".jpg";
 }
 
 closeViewerBtn.onclick = () => {
@@ -102,20 +94,20 @@ closeViewerBtn.onclick = () => {
 };
 
 nextBtn.onclick = () => {
-  if (currentIndex < images.length - 1) {
+  if (currentIndex < TOTAL_IMAGES) {
     currentIndex++;
     updateViewer();
   }
 };
 
 prevBtn.onclick = () => {
-  if (currentIndex > 0) {
+  if (currentIndex > 1) {
     currentIndex--;
     updateViewer();
   }
 };
 
-// ===== EXTRA UX =====
+// ===== EXTRA =====
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") viewer.classList.remove("active");
 });
