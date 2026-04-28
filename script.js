@@ -1,5 +1,5 @@
 let currentIndex = 1;
-const totalImages = 59; // ONLY thing you change
+const totalImages = 20; // CHANGE THIS ONLY
 
 // elements
 const viewBtn = document.getElementById("viewBtn");
@@ -9,44 +9,52 @@ const gallery = document.getElementById("gallery");
 const viewer = document.getElementById("viewer");
 const viewerImg = document.getElementById("viewerImg");
 
-// buttons
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const closePopup2 = document.getElementById("closePopup2");
 const confirmBtn = document.getElementById("confirmBtn");
+
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const closeViewer = document.getElementById("closeViewer");
 
-// FLOW
+// ---- START CLEAN STATE ----
+window.onload = () => {
+  popup1.classList.remove("active");
+  popup2.classList.remove("active");
+  gallery.classList.remove("active");
+  viewer.classList.remove("active");
+};
 
+// ---- FLOW ----
 viewBtn.onclick = () => {
-  popup1.classList.remove("hidden");
+  popup1.classList.add("active");
 };
 
 yesBtn.onclick = () => {
-  popup1.classList.add("hidden");
-  popup2.classList.remove("hidden");
+  popup1.classList.remove("active");
+  popup2.classList.add("active");
 };
 
 noBtn.onclick = () => {
-  popup1.classList.add("hidden");
+  popup1.classList.remove("active");
 };
 
 closePopup2.onclick = () => {
-  popup2.classList.add("hidden");
+  popup2.classList.remove("active");
 };
 
 confirmBtn.onclick = () => {
-  popup2.classList.add("hidden");
+  popup2.classList.remove("active");
   showGallery();
 };
 
-// GALLERY
-
+// ---- GALLERY ----
 function showGallery() {
-  gallery.classList.remove("hidden");
-  document.getElementById("bottomText").classList.remove("hidden");
+  gallery.classList.add("active");
+  document.getElementById("bottomText").style.display = "block";
+
+  gallery.innerHTML = ""; // prevent duplicates
 
   for (let i = 1; i <= totalImages; i++) {
     let box = document.createElement("div");
@@ -55,9 +63,7 @@ function showGallery() {
     let img = document.createElement("img");
     img.src = i + ".jpg";
 
-    img.onclick = () => {
-      openViewer(i);
-    };
+    img.onclick = () => openViewer(i);
 
     let label = document.createElement("p");
     label.innerText = i + ".jpg";
@@ -68,16 +74,15 @@ function showGallery() {
   }
 }
 
-// VIEWER
-
+// ---- VIEWER ----
 function openViewer(index) {
   currentIndex = index;
-  viewer.classList.remove("hidden");
+  viewer.classList.add("active");
   viewerImg.src = currentIndex + ".jpg";
 }
 
 closeViewer.onclick = () => {
-  viewer.classList.add("hidden");
+  viewer.classList.remove("active");
 };
 
 nextBtn.onclick = () => {
