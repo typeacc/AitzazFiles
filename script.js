@@ -1,5 +1,5 @@
 // ===== CONFIG =====
-const totalImages = 59; // change this only
+const totalImages = 60; // change this only
 
 // ===== STATE =====
 let currentIndex = 1;
