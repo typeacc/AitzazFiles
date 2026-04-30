@@ -1,5 +1,6 @@
 // ===== CONFIG =====
-const totalImages = 60; // change this only
+const totalImages = 60;
+const PASSWORD = "jamshed"; // change this anytime
 
 // ===== STATE =====
 let currentIndex = 1;
@@ -10,6 +11,12 @@ const viewBtn = document.getElementById("viewBtn");
 
 const popup1 = document.getElementById("popup1");
 const popup2 = document.getElementById("popup2");
+
+// NEW (password)
+const passwordPopup = document.getElementById("passwordPopup");
+const passwordInput = document.getElementById("passwordInput");
+const passwordConfirm = document.getElementById("passwordConfirm");
+const closePassword = document.getElementById("closePassword");
 
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
@@ -25,10 +32,11 @@ const closeViewerBtn = document.getElementById("closeViewer");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-// ===== FORCE CLEAN START =====
+// ===== CLEAN START =====
 window.addEventListener("load", () => {
   popup1.classList.remove("active");
   popup2.classList.remove("active");
+  passwordPopup.classList.remove("active");
   gallery.classList.remove("active");
   viewer.classList.remove("active");
 
@@ -37,10 +45,34 @@ window.addEventListener("load", () => {
 
 // ===== FLOW =====
 
-// open first popup
+// STEP 1: open PASSWORD popup first
 viewBtn.onclick = () => {
-  popup1.classList.add("active");
+  passwordPopup.classList.add("active");
 };
+
+// close password popup
+closePassword.onclick = () => {
+  passwordPopup.classList.remove("active");
+};
+
+// check password
+passwordConfirm.onclick = () => {
+  if (passwordInput.value === PASSWORD) {
+    passwordPopup.classList.remove("active");
+    popup1.classList.add("active");
+    passwordInput.value = "";
+  } else {
+    passwordInput.value = "";
+    passwordInput.placeholder = "Wrong password";
+  }
+};
+
+// press Enter key for password
+passwordInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    passwordConfirm.click();
+  }
+});
 
 // popup1 -> popup2
 yesBtn.onclick = () => {
@@ -66,14 +98,10 @@ confirmBtn.onclick = () => {
 
 // ===== GALLERY =====
 function openGallery() {
-  // hide menu
   mainMenu.style.display = "none";
-
-  // show gallery
   gallery.classList.add("active");
   bottomText.style.display = "block";
 
-  // clear old images (important)
   gallery.innerHTML = "";
 
   for (let i = 1; i <= totalImages; i++) {
@@ -83,9 +111,7 @@ function openGallery() {
     const img = document.createElement("img");
     img.src = i + ".jpg";
 
-    img.onclick = () => {
-      openViewer(i);
-    };
+    img.onclick = () => openViewer(i);
 
     const label = document.createElement("p");
     label.textContent = i + ".jpg";
@@ -128,16 +154,13 @@ prevBtn.onclick = () => {
   }
 };
 
-// ===== EXTRA (makes it feel better) =====
-
-// ESC key closes viewer
+// ===== EXTRA =====
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     viewer.classList.remove("active");
   }
 });
 
-// click outside image closes viewer
 viewer.addEventListener("click", (e) => {
   if (e.target === viewer) {
     viewer.classList.remove("active");
