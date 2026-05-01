@@ -1,5 +1,5 @@
 // ===== CONFIG =====
-const totalImages = 62;
+const totalImages = 63;
 const PASSWORD = "aitzazweirdo"; // change this anytime
 
 // ===== STATE =====
