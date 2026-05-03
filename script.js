@@ -1,6 +1,6 @@
 // ===== CONFIG =====
 const totalImages = 63;
-const PASSWORD = "aitzazweirdo"; // change this anytime
+const PASSWORD = "stoned"; // change this anytime
 
 // ===== STATE =====
 let currentIndex = 1;
